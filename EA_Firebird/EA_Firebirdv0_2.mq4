@@ -1,7 +1,4 @@
-//+------------------------------------------------------------------+
-//|                   Firebird v0.55 - MA envelope exhaustion system |
-//+------------------------------------------------------------------+
-#property copyright "Copyright © 2005, TraderSeven"
+#property copyright "Copyright Â© 2005, TraderSeven"
 #property link      "TraderSeven@gmx.net"
 //----------------------- USER INPUT
 extern int MA_length = 10;
@@ -142,16 +139,3 @@ if(KeepStopLoss!=0)
       
 }
 }
-//----------------------- TO DO LIST
-// 1st days profit target is the 30 pip line *not* 30 pips below average as usually. -----> Day()
-// Trailing stop -> trailing or S/R or pivot target
-// Realistic stop loss
-// Avoid overly big positions
-// EUR/USD  30 pips / use same value as pipstep
-// GBP/CHF  50 pips / use same value as pipstep 
-// USD/CAD  35 pips / use same value as pipstep 
-
-//----------------------- OBSERVATIONS
-// GBPUSD not suited for this system due to not reversing exhaustions. Maybe use other types of MA
-// EURGBP often sharp reversals-> good for trailing stops?
-// EURJPY deep pockets needed.
