@@ -1,19 +1,8 @@
 //+-----------------------------------------------------------------------------+
 //|                              Firebird v0.58 - MA envelope exhaustion system |
 //+-----------------------------------------------------------------------------+
-#property copyright "Copyright © 2005, TraderSeven"
+#property copyright "Copyright Â© 2005, TraderSeven"
 #property link      "TraderSeven@gmx.net"
- 
-//            \\|//             +-+-+-+-+-+-+-+-+-+-+-+             \\|// 
-//           ( o o )            |T|r|a|d|e|r|S|e|v|e|n|            ( o o )
-//    ~~~~oOOo~(_)~oOOo~~~~     +-+-+-+-+-+-+-+-+-+-+-+     ~~~~oOOo~(_)~oOOo~~~~
-// Firebird calculates a 10 day SMA and then shifts it up and down 2% to for a channel.
-// For the calculation of this SMA either close (more trades) or H+L (safer trades) is used.
-// When the price breaks a band a postion in the opposite of the current trend is taken.
-// If the position goes against us we simply open an extra position to average.
-// 50% of the trades last a day. 45% 2-6 days 5% longer or just fail.
-//
-//01010100 01110010 01100001 01100100 01100101 01110010 01010011 01100101 01110110 01100101 01101110 
 //----------------------- USER INPUT
 extern int MA_length = 10;
 extern int MA_timeframe = 30;              // hdb did I add this ? lol
@@ -252,4 +241,5 @@ if(KeepStopLoss!=0)
 //----------------------- OBSERVATIONS
 // GBPUSD not suited for this system due to not reversing exhaustions. Maybe use other types of MA
 // EURGBP often sharp reversals-> good for trailing stops?
+
 // EURJPY deep pockets needed.
