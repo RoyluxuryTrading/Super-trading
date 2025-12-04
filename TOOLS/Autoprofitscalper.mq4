@@ -1,4 +1,3 @@
-#property copyright "Copyright © 2005, MetaQuotes Software Corp."
 #property link      "http://www.metaquotes.net"
 #property show_inputs
 
@@ -113,7 +112,7 @@ int start() {
    double price_12;
    string Ls_unused_20;
    if (AccountNumber() != Account) {
-      Print("Неправильный номер счёта");
+      Print("ГЌГҐГЇГ°Г ГўГЁГ«ГјГ­Г»Г© Г­Г®Г¬ГҐГ° Г±Г·ВёГІГ ");
       return (0);
    }
    G_symbol_600 = "";
@@ -197,7 +196,7 @@ int start() {
                   } else {
                      if (!AccountFreeMarginCheck(G_symbol_600, OP_BUY, Lots) <= 0.0 || GetLastError() == 134/* NOT_ENOUGH_MONEY */) G_ticket_344 = OrderSend(G_symbol_600, OP_BUY, Lots, G_ask_536 - luft * G_point_276, Slippage, price_12, price_4, 0, G_magic_324, 0, MediumBlue);
                      Print(G_symbol_600 + " buy at the price=" + G_ask_536 + " price Saxo bank=" + Gd_404 + " i=" + Gd_412 + " lot=" + NormalizeDouble(Lots, 2) + " spread Saxo bank=" +
-                        NormalizeDouble(Gd_224, 1) + " спред мт=" + NormalizeDouble(Gd_316, 2) + " стоп=" + price_12 + " тейком=" + price_4);
+                        NormalizeDouble(Gd_224, 1) + " Г±ГЇГ°ГҐГ¤ Г¬ГІ=" + NormalizeDouble(Gd_316, 2) + " Г±ГІГ®ГЇ=" + price_12 + " ГІГҐГ©ГЄГ®Г¬=" + price_4);
                   }
                   if (G_ticket_344 > 0) {
                      if (OrderSelect(G_ticket_344, SELECT_BY_TICKET, MODE_TRADES)) Print("BUY order opened : ", ErrorDescription(OrderOpenPrice()));
@@ -212,8 +211,8 @@ int start() {
                      G_ticket_344 = 1;
                   } else {
                      if (!AccountFreeMarginCheck(G_symbol_600, OP_SELL, Lots) <= 0.0 || GetLastError() == 134/* NOT_ENOUGH_MONEY */) G_ticket_344 = OrderSend(G_symbol_600, OP_SELL, Lots, Gd_528 + luft * G_point_276, Slippage, price_12, price_4, 0, G_magic_324, 0, Red);
-                     Print(G_symbol_600 + " sell at the price=" + Gd_528 + " price Saxo bank=" + Gd_404 + " i=" + Gd_412 + " лотом=" + NormalizeDouble(Lots, 2) + " spread Saxo bank=" +
-                        NormalizeDouble(Gd_224, 1) + " спред мт=" + NormalizeDouble(Gd_316, 2) + " стоп=" + price_12 + " тейком=" + price_4);
+                     Print(G_symbol_600 + " sell at the price=" + Gd_528 + " price Saxo bank=" + Gd_404 + " i=" + Gd_412 + " Г«Г®ГІГ®Г¬=" + NormalizeDouble(Lots, 2) + " spread Saxo bank=" +
+                        NormalizeDouble(Gd_224, 1) + " Г±ГЇГ°ГҐГ¤ Г¬ГІ=" + NormalizeDouble(Gd_316, 2) + " Г±ГІГ®ГЇ=" + price_12 + " ГІГҐГ©ГЄГ®Г¬=" + price_4);
                   }
                   if (G_ticket_344 > 0) {
                      if (OrderSelect(G_ticket_344, SELECT_BY_TICKET, MODE_TRADES)) Print("SELL order opened : ", OrderOpenPrice());
@@ -554,7 +553,7 @@ int f0_1() {
       else Gs_380 = "SELL " + DoubleToStr(Gd_528, Gi_328);
       if (Gi_632) {
          Print("i=", Gd_412, " MinUr=", MinUr, " MinUrt=", Gd_308, "  Global=", Gd_404, "  Bid=", NormalizeDouble(Gd_528, Gi_328), "  Ask=", NormalizeDouble(G_ask_536, Gi_328),
-            "  ", Gs_380, "  спред саксы=", Gd_224, "  спред мт=", Gd_316);
+            "  ", Gs_380, "  Г±ГЇГ°ГҐГ¤ Г±Г ГЄГ±Г»=", Gd_224, "  Г±ГЇГ°ГҐГ¤ Г¬ГІ=", Gd_316);
       }
       if (sound == TRUE && Gd_476 != iBars(G_symbol_600, PERIOD_M1)) Gd_476 = iBars(G_symbol_600, PERIOD_M1);
    }
@@ -692,7 +691,7 @@ int f0_10() {
    int Li_20;
    int Li_24;
    int Li_28 = 3000;
-   Gi_508 = FindWindowA("#32770", "Ордер");
+   Gi_508 = FindWindowA("#32770", "ГЋГ°Г¤ГҐГ°");
    if (Gi_508 != 0) {
       Gi_512 = GetWindow(Gi_508, 5);
       Gi_512 = GetWindow(Gi_512, 2);
@@ -727,7 +726,7 @@ int f0_10() {
       Gi_508 = 0;
       Li_0 = GetTickCount();
       while (Gi_508 == 0) {
-         Gi_508 = FindWindowA("#32770", "Ордер");
+         Gi_508 = FindWindowA("#32770", "ГЋГ°Г¤ГҐГ°");
          if (GetTickCount() - Li_0 > Li_28) return (0);
       }
       Li_8 = GetWindow(Gi_508, 5);
