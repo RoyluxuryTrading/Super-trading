@@ -1,0 +1,29 @@
+Exponential Moving Average (EMA)
+
+Definition:
+The Exponential Moving Average (EMA) is a moving average that gives more weight to recent price data, making it more responsive to current market conditions compared to the Simple Moving Average (SMA).
+
+Formula:
+EMA = (Price_today × Multiplier) + (EMA_previous × (1 − Multiplier))
+
+Where:
+Multiplier = 2 / (N + 1)
+N = number of periods (for example, EMA 50 means N = 50)
+
+Key Features:
+
+Reacts faster to price changes
+
+Useful for identifying trends
+
+Helps generate signals when combined with other EMAs (for example, EMA 50 and EMA 200 crossovers)
+
+Common EMA Settings:
+
+EMA 9 or 10 for short-term momentum
+
+EMA 20 for swing trading
+
+EMA 50 for medium-term trend
+
+EMA 200 for long-term trend
