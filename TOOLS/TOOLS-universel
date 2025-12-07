@@ -1,0 +1,151 @@
+//+------------------------------------------------------------------+
+//|                       Super-Trading TOOLS v1.0                   |
+//|                     General Utility Functions                    |
+//+------------------------------------------------------------------+
+#property copyright "Super-trading Project"
+#property link      "https://github.com/"
+#property strict
+
+// ---------------------------------------------------------
+//   AUTOMATIC PIP DETECTION
+// ---------------------------------------------------------
+double Pip()
+{
+   if (Digits == 3 || Digits == 5) return(Point * 10.0);
+   return(Point);
+}
+
+// ---------------------------------------------------------
+//   GET SPREAD IN PIPS
+// ---------------------------------------------------------
+double GetSpreadPips()
+{
+   double p = Pip();
+   return((Ask - Bid) / p);
+}
+
+// ---------------------------------------------------------
+//   CHECK IF TRADING ALLOWED (SPREAD FILTER)
+// ---------------------------------------------------------
+bool SpreadOK(double maxSpreadPips)
+{
+   return(GetSpreadPips() <= maxSpreadPips);
+}
+
+// ---------------------------------------------------------
+//   CHECK IF WE ARE IN A HIGH-IMPACT NEWS TIME WINDOW
+//   (requires a news indicator to set buffer)
+// ---------------------------------------------------------
+bool AllowTrading(bool NewsFilter, datetime NewsBufferStart, datetime NewsBufferEnd)
+{
+   if (!NewsFilter) return(true);
+   datetime nowTime = TimeCurrent();
+   if (nowTime >= NewsBufferStart && nowTime <= NewsBufferEnd) return(false);
+   return(true);
+}
+
+// ---------------------------------------------------------
+//   ORDER COUNT FOR THIS SYMBOL + MAGIC
+// ---------------------------------------------------------
+int CountOrders(int magic)
+{
+   int c = 0;
+   for (int i = 0; i < OrdersTotal(); i++)
+   {
+      if (OrderSelect(i, SELECT_BY_POS, MODE_TRADES))
+      {
+         if (OrderSymbol() == Symbol() && OrderMagicNumber() == magic)
+            c++;
+      }
+   }
+   return(c);
+}
+
+// ---------------------------------------------------------
+//   GET AVERAGE OPEN PRICE OF ALL TRADES FOR MAGIC NUMBER
+// ---------------------------------------------------------
+double AverageOpenPrice(int magic)
+{
+   double sum = 0;
+   int count  = 0;
+
+   for (int i = 0; i < OrdersTotal(); i++)
+   {
+      if (OrderSelect(i, SELECT_BY_POS, MODE_TRADES))
+      {
+         if (OrderSymbol() == Symbol() && OrderMagicNumber() == magic)
+         {
+            sum += OrderOpenPrice();
+            count++;
+         }
+      }
+   }
+
+   if (count == 0) return(0);
+   return(sum / count);
+}
+
+// ---------------------------------------------------------
+//   MODIFY SL AND TP FOR ALL ORDERS (GRID MANAGEMENT)
+// ---------------------------------------------------------
+void UpdateAllStops(double newSL, double newTP, int magic)
+{
+   for (int i = 0; i < OrdersTotal(); i++)
+   {
+      if (OrderSelect(i, SELECT_BY_POS, MODE_TRADES))
+      {
+         if (OrderSymbol() == Symbol() && OrderMagicNumber() == magic)
+         {
+            OrderModify(
+               OrderTicket(),
+               OrderOpenPrice(),
+               newSL,
+               newTP,
+               0,
+               clrYellow
+            );
+         }
+      }
+   }
+}
+
+// ---------------------------------------------------------
+//   TRAILING STOP HANDLER
+// ---------------------------------------------------------
+void ApplyTrailingStop(int magic, int trailingPips)
+{
+   double p = Pip();
+
+   for (int i = 0; i < OrdersTotal(); i++)
+   {
+      if (OrderSelect(i, SELECT_BY_POS, MODE_TRADES))
+      {
+         if (OrderSymbol() == Symbol() && OrderMagicNumber() == magic)
+         {
+            if (OrderType() == OP_BUY)
+            {
+               double newSL = Bid - trailingPips * p;
+               if (newSL > OrderStopLoss())
+                  OrderModify(OrderTicket(), OrderOpenPrice(), newSL, OrderTakeProfit(), 0);
+            }
+
+            if (OrderType() == OP_SELL)
+            {
+               double newSL = Ask + trailingPips * p;
+               if (newSL < OrderStopLoss())
+                  OrderModify(OrderTicket(), OrderOpenPrice(), newSL, OrderTakeProfit(), 0);
+            }
+         }
+      }
+   }
+}
+
+// ---------------------------------------------------------
+//   LOGGING WRAPPER
+// ---------------------------------------------------------
+void Log(string message)
+{
+   Print("[TOOLS] ", message);
+}
+
+//+------------------------------------------------------------------+
