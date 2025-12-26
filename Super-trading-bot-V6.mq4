@@ -12,9 +12,9 @@ extern string   EA_Name         = "MLq4_librery_V6";
 extern int      Magic           = 1111111;
 
 // Trade filters / logic
-extern int      Max_Spread      = 20;     // in points
-extern int      StepPoints      = 30;     // pending distance from market, in points
-extern int      SL_Points       = 600;    // fixed SL in points (also used for risk sizing)
+extern int      Max_Spread      = 30;     // in points
+extern int      StepPoints      = 50;     // pending distance from market, in points
+extern int      SL_Points       = 500;    // fixed SL in points (also used for risk sizing)
 extern int      TP_Points       = 900;    // fixed TP in points
 extern double   SarPeriod       = 0.56;   // SAR accel
 extern double   SarAccel        = 0.20;   // SAR max accel
@@ -39,7 +39,7 @@ extern double   MaxDrawdownPct  = 35.0;   // stop trading if equity drawdown >= 
 // Higher-Timeframe Trend Filter (from V4)
 extern bool     UseHTFTrend     = true;          // enable/disable HTF filter
 extern int      HTF_EMA_Period  = 200;           // default 200 EMA
-extern int      HTF_TF          = PERIOD_H1;     // higher timeframe (e.g., PERIOD_H1 or PERIOD_H4)
+extern int      HTF_TF          = PERIOD_M15;     // higher timeframe (e.g., PERIOD_H1 or PERIOD_H4)
 
 // BE + Partial + Time Exit (from V5)
 extern bool     UseBreakEven       = true;
@@ -474,3 +474,4 @@ bool IsCooldownOk(bool buySide)
    if(last==0) return true;
    return (TimeCurrent() - last) >= CooldownMin*60;
 }
+
